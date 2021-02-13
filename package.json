@@ -1,0 +1,30 @@
+{
+  "name": "quantum-sim",
+  "version": "0.0.1",
+  "description": "Simple quantum computer simulator using tensorflow.",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "webpack serve --port 8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/believeinlain/quantum-sim-js.git"
+  },
+  "author": "Stephanie Aelmore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/believeinlain/quantum-sim-js/issues"
+  },
+  "homepage": "https://github.com/believeinlain/quantum-sim-js#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^5.1.0",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "xterm": "^4.10.0"
+  }
+}
