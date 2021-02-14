@@ -1,73 +1,63 @@
 
-class App {
-    constructor() {
-        var appWidth = 300;
-        var appHeight = 150;
+var React = require('react');
+var ReactDOM = require('react-dom');
 
-        // create the canvas html element and attach it to the webpage
-        var canvas = document.getElementById('display');
-        canvas.style.width = appWidth;
-        canvas.style.height = appHeight;
-        canvas.setAttribute('width', appWidth);
-        canvas.setAttribute('height', appHeight);
-
-        // test canvas
-        var ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = 'orange';
-        ctx.fillRect(0, 0, appWidth, appHeight);
-    
-        ctx.fillStyle = 'black';
-        ctx.fillRect(25, 25, 100, 100);
-        ctx.clearRect(45, 45, 60, 60);
-        ctx.strokeRect(50, 50, 50, 50);
-
-        // create the interactive terminal
-        var term = new Terminal();
-        var terminal = document.getElementById('terminal');
-        if (terminal) term.open(terminal);
-        
-        function runFakeTerminal() {
-            if (term._initialized) {
-              return;
-            }
-        
-            term._initialized = true;
-        
-            term.prompt = () => {
-              term.write('\r\n$ ');
-            };
-        
-            term.writeln('Welcome to xterm.js');
-            term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
-            term.writeln('Type some keys and commands to play around.');
-            term.writeln('');
-            prompt(term);
-        
-            term.onData(e => {
-              switch (e) {
-                case '\r': // Enter
-                case '\u0003': // Ctrl+C
-                  prompt(term);
-                  break;
-                case '\u007F': // Backspace (DEL)
-                  // Do not delete the prompt
-                  if (term._core.buffer.x > 2) {
-                    term.write('\b \b');
-                  }
-                  break;
-                default: // Print all other characters for demo
-                  term.write(e);
-              }
-            });
-          }
-        
-          function prompt(term) {
-            term.write('\r\n$ ');
-          }
-
-        if (terminal) runFakeTerminal();
-    }
+class Start extends React.Component {
+  render() {
+    return (
+      <button className="start">
+        {this.props.value}
+      </button>
+    )
+  }
 }
 
-new App();
+class Gate extends React.Component {
+  render() {
+    return (
+      <button className="gate">
+        {this.props.value}
+      </button>
+    )
+  }
+}
+
+class Simulator extends React.Component {
+  render() {
+    return (
+      <div className="simulator">
+        <div className="line">
+          <Gate value='H'/>
+          <Gate value='I'/>
+          <Gate/>
+          <Gate/>
+          <Gate/>
+        </div>
+        <Start value='|0⟩'/>
+        <div className="line">
+          <Gate/>
+          <Gate value='H'/>
+          <Gate/>
+          <Gate/>
+          <Gate/>
+        </div>
+        <Start value='|1⟩'/>
+        <div className="line">
+          <Gate/>
+          <Gate/>
+          <Gate/>
+          <Gate/>
+          <Gate/>
+        </div>
+        <Start value='|1⟩'/>
+      </div>
+    );
+  }
+}
+
+// ========================================
+
+ReactDOM.render(
+  <Simulator />,
+  document.getElementById('interface')
+);
